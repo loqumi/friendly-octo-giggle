@@ -1,0 +1,26 @@
+.historical-dates {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  max-width: 1280px;
+  min-height: 100vh;
+  margin-right: auto;
+  margin-left: auto;
+  border-right: 1px solid rgba($dark-blue-1, .1);
+  border-left: 1px solid rgba($dark-blue-1, .1);
+
+  color: $dark-blue-1;
+  background-color: $gray;
+
+  @import 'title';
+  @import 'timeInterval';
+
+  @include pt-sans-regular-font;
+}
+
+@import '../media/desktop';
+@import '../media/mobile';
