@@ -1,0 +1,101 @@
+/* Change box-sizing property to border-box for all elements */
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/* Allow percentage-based heights in the application */
+
+html,
+body {
+  height: 100%;
+}
+
+/* Add accessible line-height and improve text rendering */
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Change margins and paddings on subsequent elements */
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+li,
+p,
+pre,
+blockquote,
+figure,
+hr,
+fieldset,
+legend {
+  margin: 0;
+  padding: 0;
+}
+
+/* Change margins and fonts on subsequent elements */
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  margin: 0;
+  font: inherit;
+}
+
+/* Change font size and font weight for headings */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: inherit;
+  font-size: inherit;
+}
+
+/* Avoid text overflows */
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: anywhere;
+}
+
+/* Improve media defaults */
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Add cursor and remove border radius for buttons */
+
+button {
+  border-radius: 0;
+  cursor: pointer;
+}

@@ -1,0 +1,17 @@
+@mixin pt-sans-regular-font {
+  font-weight: 400;
+  font-size: 20px;
+  font-family: 'PTSans Regular', sans-serif;
+}
+
+@mixin pt-sans-bold-font {
+  font-weight: 700;
+  font-size: 20px;
+  font-family: 'PTSans Bold', sans-serif;
+}
+
+@mixin bebas-neue-regular-font {
+  font-weight: 400;
+  font-size: 25px;
+  font-family: 'BebasNeue Regular', sans-serif;
+}
