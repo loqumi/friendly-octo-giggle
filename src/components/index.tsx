@@ -1,6 +1,9 @@
 import TimeIntervals from "./timeInterval";
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useLayoutEffect, useState} from 'react';
 import { HistoricalDatesProps, HistoricalEvent, YearsIntervalProps } from "../types";
+import ControlsWrapper from "./ControlsWrapper";
+import FractionPagination from "./FractionPagination";
+import ArrowControls from "./ArrowControls";
 
 const ROTATION_DURATION = 1;
 
@@ -9,6 +12,16 @@ function HistoricalDates({ data }: HistoricalDatesProps) {
     const [years, setYears] = useState<YearsIntervalProps>(data[0].yearsInterval);
     const [arrowDirection, setArrowDirection] = useState<null | 'left' | 'right'>(null);
     const [isUpdating, setUpdating] = useState<boolean>(false);
+    const [isMobileScreen, setIsMobileScreen] = useState(false);
+
+    useLayoutEffect(() => {
+        const handleResize = () => {
+            setIsMobileScreen(window.innerWidth <= 768);
+        };
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const pointsData = data.map(({ index, label }) => ({
         index,
@@ -47,6 +60,29 @@ function HistoricalDates({ data }: HistoricalDatesProps) {
         }
     };
 
+    const handleControlClick = useCallback((e: React.MouseEvent, id: number) => {
+        const target = e.currentTarget as HTMLElement;
+        if (
+            isUpdating ||
+            target.classList.contains('arrow-controls__arrow-left_disabled') ||
+            target.classList.contains('arrow-controls__arrow-right_disabled')
+        ) {
+            return;
+        }
+
+        const newIndex = currentEvent.index + id;
+        const newEvent = data.find(e => e.index === newIndex);
+
+        if (!newEvent) return;
+
+        if (isMobileScreen) {
+            updateYears(newIndex);
+        } else {
+            setArrowDirection(id < 0 ? 'left' : 'right');
+            setCurrentEvent(newEvent);
+        }
+    }, [currentEvent.index, data, isUpdating, isMobileScreen, updateYears]);
+
     if (data.length < 2 || data.length > 6) {
         return null;
     }
@@ -66,6 +102,19 @@ function HistoricalDates({ data }: HistoricalDatesProps) {
                 arrowDirection={arrowDirection}
                 arrowDirectionSetter={setArrowDirection}
             />
+            <hr className="historical-dates__delimiter" />
+            <ControlsWrapper>
+                <FractionPagination
+                    currentPointIndex={currentEvent.index}
+                    pointsLength={data.length}
+                />
+                <ArrowControls
+                    controlClickHandler={handleControlClick}
+                    pointsLength={data.length}
+                    arrowDirection={arrowDirection}
+                    currentPointIndex={currentEvent.index}
+                />
+            </ControlsWrapper>
         </div>
     );
 }

@@ -1,0 +1,28 @@
+.arrow-controls {
+  display: flex;
+
+  width: fit-content;
+
+  &__arrow-left {
+    @include arrow-control-left;
+
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    border: 1px solid $dark-blue-1;
+  }
+
+  &__arrow-right {
+    @include arrow-control-right;
+
+    width: 50px;
+    height: 50px;
+    border: 1px solid $dark-blue-1;
+  }
+
+  &__arrow-left_disabled,
+  &__arrow-right_disabled {
+    opacity: .5;
+    cursor: wait;
+  }
+}

@@ -16,10 +16,52 @@
   color: $dark-blue-1;
   background-color: $gray;
 
+  @mixin arrow-control-left {
+    border-radius: 50%;
+
+    background-image: url('../../images/arrowDesktop.svg');
+    background-repeat: no-repeat;
+    background-position: 50%;
+
+    cursor: pointer;
+  }
+  @mixin arrow-control-right {
+    @include arrow-control-left;
+
+    transform: rotate(180deg);
+  }
+  @mixin swiper-arrow-control {
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+
+    width: 40px;
+    height: 40px;
+    border: none;
+
+    background-color: $white;
+    background-image: url('../../images/blue-arrowDesktop.svg');
+    box-shadow: 0 0 15px 0 $shadow;
+
+    &:disabled {
+      opacity: 0;
+      cursor: auto;
+    }
+  }
+
   @import 'title';
   @import 'timeInterval';
+  @import 'arrow-controls';
 
   @include pt-sans-regular-font;
+
+  &__controls-wrapper {
+    position: absolute;
+    bottom: 25%;
+    left: 80px;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 @import '../media/desktop';
