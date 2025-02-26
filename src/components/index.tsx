@@ -4,6 +4,8 @@ import { HistoricalDatesProps, HistoricalEvent, YearsIntervalProps } from "../ty
 import ControlsWrapper from "./ControlsWrapper";
 import FractionPagination from "./FractionPagination";
 import ArrowControls from "./ArrowControls";
+import Slider from "./Slider";
+import BulletsPagination from "./BulletsPagination";
 
 const ROTATION_DURATION = 1;
 
@@ -13,6 +15,8 @@ function HistoricalDates({ data }: HistoricalDatesProps) {
     const [arrowDirection, setArrowDirection] = useState<null | 'left' | 'right'>(null);
     const [isUpdating, setUpdating] = useState<boolean>(false);
     const [isMobileScreen, setIsMobileScreen] = useState(false);
+
+    const sliderData = data[currentEvent.index - 1].details;
 
     useLayoutEffect(() => {
         const handleResize = () => {
@@ -115,6 +119,12 @@ function HistoricalDates({ data }: HistoricalDatesProps) {
                     currentPointIndex={currentEvent.index}
                 />
             </ControlsWrapper>
+            <Slider sliderData={sliderData} isMobileScreen={isMobileScreen} />
+            <BulletsPagination
+                currentPointIndex={currentEvent.index}
+                pointsLength={data.length}
+                bulletClickHandler={handleBulletClick}
+            />
         </div>
     );
 }

@@ -52,8 +52,42 @@
   @import 'title';
   @import 'timeInterval';
   @import 'arrow-controls';
+  @import 'slider';
 
   @include pt-sans-regular-font;
+
+  &::before {
+    content: '';
+    position: absolute;
+
+    width: 100%;
+    max-width: inherit;
+    height: 2px;
+
+    background-color: rgba($dark-blue-1, .1);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+
+    width: 2px;
+    height: 100%;
+
+    background-color: rgba($dark-blue-1, .1);
+  }
+
+  &__delimiter {
+    display: none;
+
+    width: 100%;
+    max-width: 280px;
+    height: 1px;
+    margin-top: 58px;
+    border: none;
+
+    background-color: $gray-2;
+  }
 
   &__controls-wrapper {
     position: absolute;
@@ -61,6 +95,37 @@
     left: 80px;
     display: flex;
     flex-direction: column;
+  }
+
+  &__fraction-pagination {
+    margin-bottom: 20px;
+  }
+
+  &__bullets-pagination {
+    position: absolute;
+    bottom: 6%;
+    left: 50%;
+    display: none;
+
+    transform: translateX(-50%);
+
+    &__bullet:not(:first-child) {
+      margin-left: 10px;
+    }
+
+    &__bullet {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+
+      background-color: $dark-blue-1;
+
+      opacity: .4;
+
+      &_active {
+        opacity: 1;
+      }
+    }
   }
 }
 
