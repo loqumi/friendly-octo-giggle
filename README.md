@@ -5,7 +5,7 @@ git clone https://github.com/loqumi/friendly-octo-giggle.git
 ```
 Далее перейти в папку проекта:
 ```
-cd dates
+cd friendly-octo-giggle
 ```
 Установить и запустить проект
 ```
