@@ -225,7 +225,7 @@ function TimeIntervals({
         setArrowDirection(null);
       }, rotationDuration * 1000 + 300);
     }
-  }, [arrowDirection]);
+  }, [arrowDirection, currentPointIndex, rotationDuration, setArrowDirection]);
 
   return (
     <>

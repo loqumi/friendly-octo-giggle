@@ -65,6 +65,7 @@ export function hidePoint({
 }
 
 export function hidePointLabel(label: HTMLElement | string) {
+    gsap.killTweensOf(label);
     gsap.set(label, { opacity: 0 });
 }
 
@@ -121,6 +122,7 @@ export function showPointLabel({
     duration?: number;
     animate?: boolean;
 }) {
+    gsap.killTweensOf(label);
     const action = animate ? gsap.to : gsap.set;
     const config = { opacity: 1, ...(animate && { duration, ease: 'power1.out' }) };
 

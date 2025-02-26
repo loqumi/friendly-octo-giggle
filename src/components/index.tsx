@@ -1,11 +1,12 @@
 import TimeIntervals from "./timeInterval";
-import React, {useCallback, useLayoutEffect, useState} from 'react';
+import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { HistoricalDatesProps, HistoricalEvent, YearsIntervalProps } from "../types";
 import ControlsWrapper from "./ControlsWrapper";
 import FractionPagination from "./FractionPagination";
 import ArrowControls from "./ArrowControls";
 import Slider from "./Slider";
 import BulletsPagination from "./BulletsPagination";
+import { hidePointLabel } from "../utils/gsap";
 
 const ROTATION_DURATION = 1;
 
@@ -59,30 +60,26 @@ function HistoricalDates({ data }: HistoricalDatesProps) {
     }, [years, data, isUpdating]);
 
     const handleBulletClick = (index: number) => {
-        if (!isUpdating) {
-            updateYears(index);
-        }
+        if (currentEvent.index === index) return;
+        updateYears(index);
     };
 
-    const handleControlClick = useCallback((e: React.MouseEvent, id: number) => {
-        const target = e.currentTarget as HTMLElement;
-        if (
-            isUpdating ||
-            target.classList.contains('arrow-controls__arrow-left_disabled') ||
-            target.classList.contains('arrow-controls__arrow-right_disabled')
-        ) {
-            return;
-        }
+    const handleControlClick = useCallback((e: React.MouseEvent, delta: number) => {
+        if (isUpdating) return;
+        hidePointLabel(currentEvent.label)
 
-        const newIndex = currentEvent.index + id;
+        let newIndex = currentEvent.index + delta;
+        updateYears(newIndex)
+        if (newIndex < 1) newIndex = data.length;
+        if (newIndex > data.length) newIndex = 1;
+
         const newEvent = data.find(e => e.index === newIndex);
-
         if (!newEvent) return;
 
         if (isMobileScreen) {
             updateYears(newIndex);
         } else {
-            setArrowDirection(id < 0 ? 'left' : 'right');
+            setArrowDirection(delta < 0 ? 'left' : 'right');
             setCurrentEvent(newEvent);
         }
     }, [currentEvent.index, data, isUpdating, isMobileScreen, updateYears]);
