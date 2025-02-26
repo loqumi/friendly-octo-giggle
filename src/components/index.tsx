@@ -67,11 +67,12 @@ function HistoricalDates({ data }: HistoricalDatesProps) {
     const handleControlClick = useCallback((e: React.MouseEvent, delta: number) => {
         if (isUpdating) return;
         hidePointLabel(currentEvent.label)
-
         let newIndex = currentEvent.index + delta;
-        updateYears(newIndex)
+
         if (newIndex < 1) newIndex = data.length;
         if (newIndex > data.length) newIndex = 1;
+
+        updateYears(newIndex)
 
         const newEvent = data.find(e => e.index === newIndex);
         if (!newEvent) return;
@@ -82,7 +83,7 @@ function HistoricalDates({ data }: HistoricalDatesProps) {
             setArrowDirection(delta < 0 ? 'left' : 'right');
             setCurrentEvent(newEvent);
         }
-    }, [currentEvent.index, data, isUpdating, isMobileScreen, updateYears]);
+    }, [isUpdating, currentEvent.label, currentEvent.index, updateYears, data, isMobileScreen]);
 
     if (data.length < 2 || data.length > 6) {
         return null;
